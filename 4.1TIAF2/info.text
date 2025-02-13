@@ -1,0 +1,6 @@
+TIAF - Template Inside Application Folder
+
+1. When we create templates folder inside application we don't have to do any settings in
+   settings.py file.
+
+   

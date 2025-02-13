@@ -1,0 +1,99 @@
+In this project we will setup the url inside the both the applications (marvel and dc) using include function.
+
+Steps for url routing inside the applications:
+
+1. create project -  django-admin startproject hero2
+
+2. Change Directory - cd hero2
+
+3. Migrate the files - python manage.py migrate
+
+4. create an app - python manage.py startapp marvel
+
+5. create 2nd app - python manage.py startapp dc
+
+6. Install the app - go to settings.py inside hero2 folder and add name of the apps inside the list of 
+                     INSTALLED_APPS = [
+                                            'django.contrib.admin',
+                                            'django.contrib.auth',
+                                            'django.contrib.contenttypes',
+                                            'django.contrib.sessions',
+                                            'django.contrib.messages',
+                                            'django.contrib.staticfiles',
+                                            'marvel',
+                                            'dc',
+                                      ]
+
+7. create urls.py file in both the app, marvel and dc.
+
+8. Write the business logic for both the app in views.py file.
+
+9. Now route url in urls.py file of both the apps.
+
+10. Defining functions in views.py of marvel app
+
+      from django.http import HttpResponse
+      # Create your views here.
+
+      def spiderman(request):
+      return HttpResponse('I am spider-man')
+
+
+      def ironman(request):
+      return HttpResponse('I am Ironman')
+      
+10.1 Defining in urls.py of marvel app         # app_name = marvel
+
+    from django.urls import path
+    from marvel import views
+
+    urlpatterns = [
+      path('spiderman/',views.spiderman),
+      path('superman/',views.ironman)
+      ]
+
+11. Defining functions in views.py of dc app
+
+      from django.http import HttpResponse
+      # Create your views here.
+
+      def superman(request):
+      return HttpResponse('I am superman')
+
+      def batman(request):
+      return HttpResponse('I am batman')
+
+11.1 Defining in urls.py of dc app             # app_name = dc
+
+      from django.urls import path
+      from dc import views
+
+      urlpatterns = [
+      path('superman/',views.superman),
+      path('batman/',views.batman),
+
+      ]
+
+12. Now add url in urls.py of project folder i.e hero2
+
+      from django.contrib import admin
+      from django.urls import path,include
+
+
+      urlpatterns = [
+      path('admin/', admin.site.urls),
+      path('',include('marvel.urls'))
+      path('',include('dc.urls')),
+      ]
+
+13. Now runserver - python manage.py runserver
+
+Accesing url
+
+14. http://127.0.0.1:8000/dc/batman/
+
+15. http://127.0.0.1:8000/dc/superman/
+
+16. http://127.0.0.1:8000/marvel/spiderman/
+
+17. http://127.0.0.1:8000/marvel/ironman/

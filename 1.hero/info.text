@@ -1,0 +1,60 @@
+In this project We wil create one app and write some views function inside the app (core) and route url
+inside urls.py of project folder i.e hero.
+
+steps for creating applications and url routing inside urls.py of project folder (hero):
+
+1. create project -  django-admin startproject hero
+
+2. Change Directory - cd hero
+
+3. Migrate the files - python manage.py migrate
+
+4. create an app - python manage.py startapp core
+
+5. Install the app - go to settings.py inside Hero folder and add name of the apps inside the list of 
+                     INSTALLED_APPS = [
+                                            'django.contrib.admin',
+                                            'django.contrib.auth',
+                                            'django.contrib.contenttypes',
+                                            'django.contrib.sessions',
+                                            'django.contrib.messages',
+                                            'django.contrib.staticfiles',
+                                            'core',
+                                            
+                                      ]
+
+6. Now write logic in views.py of core app
+
+    from django.http import HttpResponse
+
+    def index(request):
+    return HttpResponse('<h1> This is a home page </h1>')
+
+    def about(request):
+        return HttpResponse('<h1> This is a about page </h1>')
+
+    def contact(request):
+        return HttpResponse('<h1> This is a contact page </h1>')
+
+7. Now add url in urls.py of project folder i.e Hero
+
+from django.contrib import admin
+from django.urls import path
+from core import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',views.index),
+    path('about/',views.about),
+    path('contact/',views.contact),
+]
+
+
+8. python manage.py runserver
+Accesing url
+
+9. http://127.0.0.1:8000             # Bydefault redirect to homepage
+
+10. http://127.0.0.1:8000/about/     # redirect to about page
+
+11. http://127.0.0.1:8000/contact/   # redirect to contact page
