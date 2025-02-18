@@ -1,0 +1,79 @@
+1.First we will create a project of template_inheritance
+
+2.Then we will copy the core app from the adding_bootstrap project and paste it in the template_inheritance project
+
+3.Then we will add the core app in the installed app in setting.py in template_inheritance
+
+Install the app - go to settings.py inside template folder and add name of the apps inside the list of 
+                     INSTALLED_APPS = [
+                                            'django.contrib.admin',
+                                            'django.contrib.auth',
+                                            'django.contrib.contenttypes',
+                                            'django.contrib.sessions',
+                                            'django.contrib.messages',
+                                            'django.contrib.staticfiles',
+                                            'core,
+                                      ]
+4. In core app we will create index.html, base.html, about.html, contact.html, number.html, footer.html files under core folder under template folder.
+
+ Now create html file inside templates folder of dc app
+   templates
+     |-core
+       |- index.html
+       |- base.html
+       |- about.html
+       |- contact.html
+       |- footer.html
+       |- navbar.html
+
+5.view me template ko load krenge
+
+from django.shortcuts import render
+
+# Create your views here.
+
+def index(request):
+    return render(request, 'core/index.html')
+
+def about(request):
+    return render(request, 'core/about.html')
+
+
+def contact(request):
+    return render(request, 'core/contact.html')
+
+6. Now route url in urls.py file of core apps.
+
+7. Defining in urls.py of core app 
+
+urlpatterns = [
+    path('', views.index),
+    path('about/', views.about),
+    path('contact/', views.contact),
+]
+
+
+8. Defining in urls.py of dc app
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('core.urls')),
+]
+
+9. For example there is footer in index then I want footer in sub page then we use extended function which we don't need to write code of footer in that page
+Contact me about this just use extended function and that structure will come
+parent table index.html
+
+This means that this template is extending the parent template named core/index.html .
+
+{% extends "core/index.html" %}
+
+10. Include the function, it is used for include in the file like just about it, include in the index file then tab, we use include function
+
+{% include "core/about.html" %}
+
+11. python manage.py runserver
+ 
