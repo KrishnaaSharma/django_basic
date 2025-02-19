@@ -9,17 +9,11 @@
     <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
 </head>
 <body>
-    <h1>hello word!!</h1>
+    <h1>Url Tag!!</h1>
 
-    {% include "core/navbar.html" %}
-
-    {% include "core/footer.html" %}
-
-    {% block content %}
-    <h1>This is a index page</h1>
-
-    {% endblock content %}
-
+    <a href= 'about/'>about</a>
+    <a href= 'about123/'>about2</a>
+    <a href= '{% url "aboutus" %}'>aboutus</a>
 
     <script src="{% static "core/js/jquery.js" %}"></script>
     <script src="{% static "core/js/popper.js" %}"></script>

@@ -1,0 +1,57 @@
+ORM:
+
+1. We create model in models.py file
+
+class MarvelModel(models.Model):
+    name = models.CharField(max_length=50)
+    heroic_name = models.CharField(max_length=50)
+
+2. we will do most important step makemigrations and migrate
+    python manage.py makemigrations
+    python manage.py migrate
+
+3. we will create superuser by following command
+    python manage.py createsuperuser
+    username: root
+    passwoord: root
+
+4. We will register model in admin.py file
+    from .models import MarvelModel
+
+    @admin.register(MarvelModel)
+    class MarvelAdmin(admin.ModelAdmin):
+        list_display =['id','name','heroic_name']
+
+5. Now we can see our models in our admin panel.
+   http://127.0.0.1:8000/admin/
+
+6. Now we will add some data in our fields name and heroic_name.
+
+7. Now we will render model data in our HTML file from views.py file
+
+    from .models import MarvelModel
+    def index(request):
+        mf=MarvelModel.objects.all()
+        return render(request,'core/index.html',{'mf':mf})
+
+8. Now we will go to index.py file and render data into table.
+ 
+        <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Heoric Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in mf %}
+        <tr>
+            <th scope="row">{{m.id}}</th>
+            <td>{{m.name}}</td>
+            <td>{{m.heroic_name}}</td>
+        </tr>
+        <tr>
+        {% endfor %}
+    </tbody>
+    </table>
