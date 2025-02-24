@@ -17,3 +17,4 @@ class MarvelForm(forms.Form):
         
         if val_password!=val_conpass:
             raise forms.ValidationError('Password doesn"t match')
+        
