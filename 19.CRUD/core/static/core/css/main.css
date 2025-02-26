@@ -1,0 +1,37 @@
+
+ body {
+     background-color: #181a13;
+     font-family: Arial, sans-serif;
+ }
+ .main {
+     max-width: 900px;
+     margin: 30px auto;
+     background: white;
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+     margin-top: 10%;
+ }
+ .head {
+     text-align: center;
+     margin-bottom: 20px;
+ }
+ .avenger-database {
+     color: #007bff;
+     font-weight: bold;
+ }
+ .aven-form {
+     background-color: #007bff;
+     color: white;
+     padding: 10px;
+     border-radius: 5px;
+     text-align: center;
+ }
+ .table-avenger table {
+     background-color: white;
+     border-radius: 5px;
+     overflow: hidden;
+ }
+ .btn-success, .btn-warning, .btn-danger {
+     width: 80px;
+ }

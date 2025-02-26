@@ -1,0 +1,81 @@
+/* General Styles */
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+
+/* Main Container */
+.main {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    align-items: center;
+}
+
+/* Header */
+.head {
+    text-align: center;
+    padding: 20px;
+}
+
+.avenger-database {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 2px 2px 4px rgba(255, 204, 0, 0.6);
+}
+
+/* Form Section */
+.new-avenger {
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.aven-form {
+    font-size: 24px;
+    color: #ff6600;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.avenger-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.avenger-form input[type="text"],
+.avenger-form input[type="email"],
+.avenger-form input[type="number"],
+.avenger-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #444;
+    color: white;
+}
+
+.avenger-form input[type="submit"] {
+    background: #ff6600;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.avenger-form input[type="submit"]:hover {
+    background: #ff3300;
+}

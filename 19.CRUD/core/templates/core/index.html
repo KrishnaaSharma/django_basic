@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "core/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "core/css/main.css" %}">
+</head>
+<body>
+
+    <div class="main">
+        <div class="head">
+            <h1 class="avenger-database">Avenger CRUD</h1>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="new-avenger">
+                    <h4 class="aven-form">
+                        Add New Avenger
+                    </h4>
+                    <div class="avenger-form">
+                        <form action="" method='POST'>
+                            {% csrf_token %}
+                            {{mf.as_p}}
+                            <input type="submit" class='btn btn-success'>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-8">
+                <div class="new-avenger-database">
+                    <h4 class="aven-form">
+                        Avenger Database
+                    </h4>
+                    <div class="table-avenger">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Heroic Name</th>
+                                <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in mm %}
+                                <tr>
+                                    <th scope="row">{{m.id}}</th>
+                                    <td>{{m.name}}</td>
+                                    <td>{{m.heroic_name}}</td>
+                                    <td>
+                                    <a href="{% url "update" m.id %}"><button type='button' class='btn btn-warning'>Update</button></a>
+                                    <a href="{% url "delete" m.id %}"><button type='button' class='btn btn-danger'>Delete</button></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                                
+                            </tbody>
+                            </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{% static "core/js/jquery.js" %}"></script>
+    <script src="{% static "core/js/popper.js" %}"></script>
+    <script src="{% static "core/js/bootstrap.min.js" %}"></script>
+</body>
+</html>
