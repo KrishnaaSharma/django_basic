@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome {{request.user}}</h1><br>
+    <a href="{% url "logout" %}"><button type='button'>Logout</button></a><br><br>
+    <a href="{% url "pcf" %}"><button type='button'>Password change</button></a><br><br>
+    <a href="{% url "spf" %}"><button type='button'> Set Password </button></a><br><br>
+</body>
+</html>
