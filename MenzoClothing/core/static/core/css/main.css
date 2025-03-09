@@ -1,0 +1,69 @@
+
+:root{
+    color: black;
+
+}
+/* Custom Background Color */
+.bg-custom {
+    background-color: #F8EBD9 !important;
+
+}
+/*Navigation CSS*/
+#header  .fixed-top{
+    box-shadow: 0 0.125rem 0.675rem rgb(0 0 0 / 15%);
+}
+
+#header .navbar-nav .nav-link{
+    color: black;
+    padding: 0,5rem 1rem;
+    text-align: center;
+    transform: 1s;
+}
+
+#header .navbar-nav .nav-link:hover{
+    color: grey;
+}
+
+#header .navbar-toggler:focus{
+    box-shadow: none;
+
+}
+
+.home .carousel-inner{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 40% center;
+    max-height: 650px;
+    
+}
+
+
+/*Product css */
+
+.products{
+    padding-top: 8.7rem;
+}
+
+.headline h2::before{
+    width: 30%;
+    height: 0.125rem;
+    background-color: rgb(199, 30, 30);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.626rem;
+}
+.products a{
+    text-decoration: none;
+    color: black;
+}
+
+.product-list .product-name h3{
+    font-size: 0.95rem;
+    color: black;
+
+}
+
+
+ 

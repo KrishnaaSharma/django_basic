@@ -1,0 +1,54 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Product Description{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/productdetail.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="container ">
+    <div class="row">
+        <div class="col-lg-5 col-md-12 col-12">
+            <div class="product">
+                <img src="{{dc.pet_image.url}}" alt="Product Image">
+                <div class="details">
+                <h2 >{{dc.name}}</h2>
+                <p class="price">{{dc.original_price}} <span style="text-decoration: line-through; color: red;">{{dc.discounted_price}}</span></p>
+                <p>Select Size:</p>
+                <div class="size-options">
+                    <button>S</button>
+                    <button>M</button>
+                    <button>L</button>
+                    <button>XL</button>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+
+                <div class="product-details">
+                    <h4>Product Description </h4>
+                    <span>{{dc.description}}</span>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="similar-products">
+            <h3>Similar Products</h3>
+            <a href="#">
+            <div class="product-list">
+                <img src="assets/images/young-man-with-shopping-bags-looking-camera.jpg" alt="Similar Product">
+                <img src="assets/images/man-with-white-shopping-bags-coffee.jpg" alt="Similar Product">
+                <img src="assets/images/man-with-white-shopping-bags-coffee.jpg" alt="Similar Product">
+                <img src="assets/images/man-with-white-shopping-bags-coffee.jpg" alt="Similar Product">
+            </div>
+        </a>
+        </div>
+    </div>
+</div>
+</section>
+    
+{% endblock content %}

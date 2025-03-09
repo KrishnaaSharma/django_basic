@@ -1,0 +1,48 @@
+
+{% extends "core/base.html" %}
+
+{% load static %}
+{% block title %}men product{% endblock title %}
+
+{% block content %}
+
+
+<section id="products" class="products">
+    <div class="container">
+      <div class="row">
+        {% for dc in dc %}
+        <div class="col-sm-12">
+          <div class="headline text-center mb-5">
+            <h2 class="pb-3 position-relatived d-inline-block">Products</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cpl-sm-6 col-lg-4">
+          <a href="{% url "productdetails"  dc.id%}" class="d-block text-center mb-4">
+            <div class="product-list">
+              <div class="product-image position-relative">
+                <img src="{{dc.pet_image.url}}" alt="" class="img-fluid product-image-first">
+              </div>
+              <div class="product-name pt-3">
+                <h3 class="text-capitalize">{{dc.name}}</h3>
+                <p class="mb-0 amount">{{dc.original_price}} <del>{{dc.discounted_price}}</del></p>
+                <div class="py-1">
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-star"></i>
+                </div>
+                <button type="button" class="add-to-card">ADD to Card </button>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+</section>
+
+{% endblock content %}
