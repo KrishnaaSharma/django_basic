@@ -15,7 +15,13 @@ urlpatterns = [
     path('contact',views.contact,name='contact'),
     path('products',views.products,name='products'),
     path('productdetails/<int:id>/',views.product_details, name='productdetails'),
+    path('registration/',views.registration,name='registration'),
+    path('login/',views.log_in,name='login'),
+    path('profile/',views.profile,name='profile'),
+    path('logout/',views.log_out, name="logout"),
+    path('changepassword/',views.changepassword, name="changepassword"),
 ]
+
 
 
 #--------- THis is will add file to media folder -----------
