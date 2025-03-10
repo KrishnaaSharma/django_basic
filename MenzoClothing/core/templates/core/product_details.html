@@ -3,9 +3,6 @@
 
 {% block title %}Product Description{% endblock title %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'core/css/productdetail.css' %}">
-{% endblock %}
 
 
 {% block content %}
@@ -13,12 +10,12 @@
 
 <section class="container ">
     <div class="row">
-        <div class="col-lg-5 col-md-12 col-12">
-            <div class="product">
-                <img src="{{dc.pet_image.url}}" alt="Product Image">
+        <div class="col-lg-12 col-md-12 col-12">
+            <div class="product-Description1">
+                <img class="shpimage" src="{{dc.pet_image.url}}" alt="Product Image">
                 <div class="details">
                 <h2 >{{dc.name}}</h2>
-                <p class="price">{{dc.original_price}} <span style="text-decoration: line-through; color: red;">{{dc.discounted_price}}</span></p>
+                <p class="price">{{dc.original_price}} <span style="text-decoration: line-through; color: red;">{{dc.discounted_price}}</span><small class="text-danger">(72% off)</small></p>
                 <p>Select Size:</p>
                 <div class="size-options">
                     <button>S</button>
@@ -27,8 +24,9 @@
                     <button>XL</button>
                 </div>
                 <button class="add-to-cart">Add to Cart</button>
+                <button class="add-to-cart">Buy Now</button>
 
-                <div class="product-details">
+                <div class="product-details12">
                     <h4>Product Description </h4>
                     <span>{{dc.description}}</span>
                 </div>

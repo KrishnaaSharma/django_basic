@@ -1,48 +1,48 @@
-
 {% extends "core/base.html" %}
-
 {% load static %}
-{% block title %}Mens product{% endblock title %}
+
+{% block title %}Mens Products{% endblock title %}
 
 {% block content %}
 
+<!-- Main CSS File Include -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
-<section id="products" class="products">
+<section id="product-page" class="product-section">
     <div class="container">
-      <div class="row">
-        {% for dc in dc %}
-        <div class="col-sm-12">
-          <div class="headline text-center mb-5">
-            <h2 class="pb-3 position-relatived d-inline-block">Products</h2>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cpl-sm-6 col-lg-4">
-          <a href="{% url "productdetails"  dc.id%}" class="d-block text-center mb-4">
-            <div class="product-list">
-              <div class="product-image position-relative">
-                <img src="{{dc.pet_image.url}}" alt="" class="img-fluid product-image-first">
-              </div>
-              <div class="product-name pt-3">
-                <h3 class="text-capitalize">{{dc.name}}</h3>
-                <p class="mb-0 amount">{{dc.original_price}} <del>{{dc.discounted_price}}</del></p>
-                <div class="py-1">
-                  <i class="bi bi-star"></i>
-                  <i class="bi bi-star"></i>
-                  <i class="bi bi-star"></i>
-                  <i class="bi bi-star"></i>
-                  <i class="bi bi-star"></i>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="product-heading text-center mb-5">
+                    <h2 class="pb-3 position-relative d-inline-block">Products</h2>
                 </div>
-                <button type="button" class="add-to-card">ADD to Card </button>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for dc in dc %}
+            <div class="col-sm-6 col-lg-4">
+              <div class="product-textimages"> 
+                <a href="{% url "productdetails" dc.id %}" class="d-block text-center mb-4">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="{{ dc.pet_image.url }}" alt="Product Image" class="img-fluid product-thumbnail">
+                        </div>
+                        <div class="product-text">
+                            <h3 class="product-title">{{ dc.name }}</h3>
+                            <p class="product-price">
+                                ₹{{ dc.original_price }} <del>₹{{ dc.discounted_price }}</del><small class="text-danger">    72% off</small>
+                            </p>
+                           
+                            <button type="button" class="btn-add-to-cart">ADD to Cart</button>
+                            <button type="button" class="btn-add-to-cart">Buy Now</button>
+                        </div>
+                    </div>
+                </a>
               </div>
             </div>
-          </a>
+            {% endfor %}
         </div>
-        {% endfor %}
-      </div>
     </div>
-
 </section>
 
 {% endblock content %}
