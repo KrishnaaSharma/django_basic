@@ -4,157 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .cart-container {
+            display: flex;
+            width: 90%;
+            height: 90%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart {
+            flex: 3;
+            padding: 20px;
+        }
+        
+        .cart h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .cart-items {
+            margin-top: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .product-desc {
+            font-size: 14px;
+            color: gray;
+        }
+        
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity button {
+            background: #ddd;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .quantity input {
+            width: 30px;
+            text-align: center;
+            border: none;
+            font-size: 16px;
+            margin: 0 5px;
+        }
+        
+        .price {
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: rgb(101, 97, 97);
+        }
+        
+        .back-to-shop {
+            display: block;
+            margin-top: 20px;
+            color: rgb(54, 54, 56);
+            text-decoration: none;
+        }
+        
+        .summary {
+            flex: 2;
+            padding: 20px;
+            background:  #f9eedd;
+            border-radius: 10px;
+        }
+        
+        .summary h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .summary-details p {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .summary-details select,
+        .summary-details input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #545252;
+            border-radius: 3px;
+            
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .checkout-btn:hover {
+            background: darkgray;
+        }
+    </style>
 </head>
-<style>
-    /* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.cart-container {
-    display: flex;
-    width: 70%;
-    background: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Left Side - Cart Items */
-.cart-items {
-    width: 60%;
-    padding: 20px;
-}
-
-.cart-items h2 {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.cart-item {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-}
-
-.cart-item img {
-    width: 60px;
-    margin-right: 15px;
-}
-
-.item-details h4 {
-    font-size: 16px;
-    margin: 0;
-}
-
-.item-details .desc {
-    color: gray;
-    font-size: 14px;
-}
-
-.quantity {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-}
-
-.quantity button {
-    background: #ddd;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.quantity input {
-    width: 30px;
-    text-align: center;
-    border: 1px solid #ddd;
-    margin: 0 5px;
-}
-
-.price {
-    margin-left: auto;
-    font-weight: bold;
-}
-
-.remove {
-    cursor: pointer;
-    font-size: 18px;
-    color: red;
-    margin-left: 15px;
-}
-
-.back-link {
-    display: block;
-    margin-top: 15px;
-    text-decoration: none;
-    color: #007bff;
-}
-
-/* Right Side - Summary */
-.cart-summary {
-    width: 40%;
-    background: #f0f0f0;
-    padding: 20px;
-}
-
-.cart-summary h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.summary-details p {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-}
-
-.summary-details select,
-.summary-details input {
-    padding: 5px;
-    width: 100%;
-    margin-top: 5px;
-}
-
-.total-price {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.checkout-btn {
-    width: 100%;
-    padding: 10px;
-    background: black;
-    color: white;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 15px;
-}
-
-.checkout-btn:hover {
-    background: #333;
-}
-
-</style>
 <body>
+
     <div class="cart-container">
         <div class="cart">
             <h2>Shopping Cart</h2>
             <p class="items-count">3 items</p>
             <div class="cart-items">
                 <div class="cart-item">
-                    <img src="shirt1.png" alt="Shirt">
+                    <img src="man-with-white-shopping-bags-coffee.jpg" alt="Shirt">
                     <div class="item-details">
                         <p class="product-name">Shirt</p>
                         <p class="product-desc">Cotton T-shirt</p>
@@ -169,7 +186,7 @@ body {
                 </div>
 
                 <div class="cart-item">
-                    <img src="shirt2.png" alt="Shirt">
+                    <img src="menzoclothing2.png" alt="Shirt">
                     <div class="item-details">
                         <p class="product-name">Shirt</p>
                         <p class="product-desc">Cotton T-shirt</p>
@@ -184,7 +201,7 @@ body {
                 </div>
 
                 <div class="cart-item">
-                    <img src="shirt3.png" alt="Shirt">
+                    <img src="man-with-white-shopping-bags-coffee.jpg" alt="Shirt">
                     <div class="item-details">
                         <p class="product-name">Shirt</p>
                         <p class="product-desc">Cotton T-shirt</p>
@@ -205,19 +222,20 @@ body {
             <h3>Summary</h3>
             <div class="summary-details">
                 <p>ITEMS <span>€ 132.00</span></p>
-                <p>SHIPPING 
+                <p>SHIPPING </p>
                     <select>
                         <option>Standard-Delivery- €5.00</option>
                     </select>
-                </p>
-                <p>GIVE CODE 
+                
+                <p>GIVE CODE </p>
                     <input type="text" placeholder="Enter your code">
-                    <button>→</button>
-                </p>
+                    
+                
                 <p class="total">TOTAL PRICE <span>€ 137.00</span></p>
             </div>
             <button class="checkout-btn">CHECKOUT</button>
         </div>
     </div>
+
 </body>
 </html>

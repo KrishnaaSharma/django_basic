@@ -1,5 +1,5 @@
-from django.shortcuts import render,redirect
-from . models import Pet
+from django.shortcuts import render,redirect,get_object_or_404
+from . models import Pet,Cart
 from . forms import RegistrationForm,AuthenticateForm,ChangePasswordForm,UserProfileForm,AdminProfileForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.contrib import messages
@@ -28,7 +28,44 @@ def product_details(request,id):
     return render(request,'core/product_details.html',{'dc':dc})
 
 
+# --------------------- add to card --------
 
+def add_to_cart(request,id):
+    if request.user.is_authenticated:
+        pet = Pet.objects.get(pk=id)
+        user = request.user
+        Cart(user=user,product=pet).save()
+        return redirect('productdetails', id)
+    else:
+        return redirect('login')
+
+
+def view_cart(request):
+    if request.user.is_authenticated:
+        cart_items =Cart.objects.filter(user=request.user)
+        return render(request,'core/cart.html',{'cart_items':cart_items})
+    else:
+        return redirect('login')
+
+
+def add_quantity(request,id):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Cart,pk=id)
+        product.quantity+=1
+        product.save()
+        return redirect('viewcart')
+    else:
+        return redirect('login')
+
+def delete_quantity(request,id):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Cart,pk=id)
+        if product.quantity>1:
+            product.quantity-=1
+            product.save()
+        return redirect('viewcart')
+    else:
+        return redirect('login')
 
 
 
