@@ -35,6 +35,7 @@ def add_to_cart(request,id):
         pet = Pet.objects.get(pk=id)
         user = request.user
         Cart(user=user,product=pet).save()
+        messages.success(request, 'Added to Cart Succefully !')
         return redirect('productdetails', id)
     else:
         return redirect('login')
@@ -43,6 +44,11 @@ def add_to_cart(request,id):
 def view_cart(request):
     if request.user.is_authenticated:
         cart_items =Cart.objects.filter(user=request.user)
+        total=0
+        delhivery_charge=1000
+        for item in cart_items:
+            total+=(item.product.discounted_price*item.quantity)
+        final_price =total+delhivery_charge
         return render(request,'core/cart.html',{'cart_items':cart_items})
     else:
         return redirect('login')
@@ -138,3 +144,9 @@ def changepassword(request):                                       # Password Ch
         return render(request,'core/changepassword.html',{'mf':mf})
     else:
         return redirect('login')
+    
+
+def delete_cart(request,id):
+    pet_cart =Cart.objects.get(pk=id)
+    pet_cart.delete()
+    return redirect('viewcart')

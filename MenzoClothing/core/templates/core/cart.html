@@ -59,8 +59,8 @@
                                 <input type="text" value="{{item.quantity}} ">
                                 <a href="{% url "add_quantity" item.id %}"><button>+</button></a>
                             </div>
-                            <p class="price">₹{{item.product.discounted_price}}</p>
-                            <button class="remove-item">&times;</button>
+                            <p class="price">₹{{item.price_and_quantity_total}}</p>
+                            <a href="{% url "deletecart" item.id %}"><button class="remove-item">&times;</button></a>
                         </div>
         
                     </div>
@@ -71,17 +71,13 @@
                 <div class="summary">
                     <h3>Summary</h3>
                     <div class="summary-details">
-                        <p>ITEMS <span>€ 132.00</span></p>
-                        <p>SHIPPING </p>
-                            <select>
-                                <option>Standard-Delivery- €5.00</option>
-                            </select>
+                        <p>ITEMS <span> ₹<b>{{total}}</span></p>
                         
-                        <p>GIVE CODE </p>
-                            <input type="text" placeholder="Enter your code">
-                            
                         
-                        <p class="total">TOTAL PRICE <span>€ 137.00</span></p>
+                        <p class="total">SubTotal <span>₹<b>{{total}}</span></p>
+                        <p class="total">Shipping <span>₹1000</span></p>
+                        
+                        <p class="total">TOTAL PRICE <span>₹<b>{{final_price}}</span></p>
                     </div>
                     <button class="checkout-btn">CHECKOUT</button>
                 </div>
