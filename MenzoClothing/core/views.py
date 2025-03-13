@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from . models import Pet,Cart
-from . forms import RegistrationForm,AuthenticateForm,ChangePasswordForm,UserProfileForm,AdminProfileForm
+from . models import Pet,Cart,CustomerDetail
+from . forms import RegistrationForm,AuthenticateForm,ChangePasswordForm,UserProfileForm,AdminProfileForm,CustomerForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
@@ -150,3 +150,32 @@ def delete_cart(request,id):
     pet_cart =Cart.objects.get(pk=id)
     pet_cart.delete()
     return redirect('viewcart')
+
+
+# ----------------------Address------------
+
+def address(request):
+    if request.method == 'POST':
+            mf =CustomerForm(request.POST)
+            if mf.is_valid():
+                user=request.user                # user variable store the current user i.e steveroger
+                name= mf.cleaned_data['name']
+                address= mf.cleaned_data['address']
+                city= mf.cleaned_data['city']
+                state= mf.cleaned_data['state']
+                pincode= mf.cleaned_data['pincode']  
+                CustomerDetail(user=user,name=name,address=address,city=city,state=state,pincode=pincode).save()
+                return redirect('address')           
+    else:
+        mf =CustomerForm()
+        address = CustomerDetail.objects.filter(user=request.user)
+    return render(request,'core/address.html',{'mf':mf,'address':address})
+
+
+def delete_address(request,id):
+        de = CustomerDetail.objects.get(pk=id)
+        de.delete()
+        return redirect('address')
+
+
+
