@@ -44,11 +44,6 @@ def add_to_cart(request,id):
 def view_cart(request):
     if request.user.is_authenticated:
         cart_items =Cart.objects.filter(user=request.user)
-        total=0
-        delhivery_charge=1000
-        for item in cart_items:
-            total+=(item.product.discounted_price*item.quantity)
-        final_price =total+delhivery_charge
         return render(request,'core/cart.html',{'cart_items':cart_items})
     else:
         return redirect('login')
@@ -179,3 +174,12 @@ def delete_address(request,id):
 
 
 
+def checkout(request):
+    cart_items =Cart.objects.filter(user=request.user)
+    total=0
+    delhivery_charge=2000
+    for item in cart_items:
+        total+=(item.product.discounted_price*item.quantity)
+        final_price =total+delhivery_charge
+    address = CustomerDetail.objects.filter(user=request.user)
+    return render(request,'core/checkout.html',{'total':total,'final_price':final_price,'address':address})
