@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    "paypal.standard.ipn",
 ]
 
 MIDDLEWARE = [
@@ -112,10 +113,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+PAYPAL_RECEIVER_EMAIL = 'sb-xzlhy38506895@business.example.com' # where cash is paid into i.e Merchant receiver mail
+PAYPAL_TEST = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
 STATIC_URL = 'static/'
 
 # Default primary key field type
