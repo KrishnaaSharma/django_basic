@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from . models import Pet,Cart,CustomerDetail
+from . models import Pet,Cart,CustomerDetail,Order
 from . forms import RegistrationForm,AuthenticateForm,ChangePasswordForm,UserProfileForm,AdminProfileForm,CustomerForm
 from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.contrib import messages
@@ -180,20 +180,41 @@ def delete_address(request,id):
         de.delete()
         return redirect('address')
 
-
+#-----------------------checkout Page--------------------------------
 
 def checkout(request):
     cart_items =Cart.objects.filter(user=request.user)
     total=0
-    delhivery_charge=2000
+    delhivery_charge=1000
     for item in cart_items:
+        item.product.price_and_quantity_total = item.product.discounted_price * item.quantity
         total+=(item.product.discounted_price*item.quantity)
-        final_price =total+delhivery_charge
+    
+    final_price =total+delhivery_charge
+
     address = CustomerDetail.objects.filter(user=request.user)
-    return render(request,'core/checkout.html',{'total':total,'final_price':final_price,'address':address})
+
+    return render(request, 'core/checkout.html', {'cart_items': cart_items,'total':total,'final_price':final_price,'address':address})
 
 
-#================= Paypal Code =====================
+
+def payment(request):
+
+    if request.method=='POST':
+        selected_address_id = request.POST.get('selected_address')
+        
+    cart_items = Cart.objects.filter(user=request.user)      # cart_items will fetch product of current user, and show product available in the cart of the current user.
+    total =0
+    delhivery_charge =2000
+    for item in cart_items:
+        item.product.price_and_quantity_total = item.product.discounted_price * item.quantity
+        total += item.product.price_and_quantity_total
+    final_price= delhivery_charge + total
+    
+    address = CustomerDetail.objects.filter(user=request.user)
+
+
+    #================= Paypal Code =====================
    
     host = request.get_host()   # Will fecth the domain site is currently hosted on.
    
@@ -204,7 +225,7 @@ def checkout(request):
         'invoice': uuid.uuid4(),  #A unique identifier for the invoice. It uses uuid.uuid4() to generate a random UUID.
         'currency_code': 'USD',
         'notify_url': f"http://{host}{reverse('paypal-ipn')}",         #The URL where PayPal will send Instant Payment Notifications (IPN) to notify the merchant about payment-related events
-        'return_url': f"http://{host}{reverse('paymentsuccess')}",     #The URL where the customer will be redirected after a successful payment. 
+        'return_url': f"http://{host}{reverse('paymentsuccess',args=[selected_address_id])}",     #The URL where the customer will be redirected after a successful payment. 
         'cancel_url': f"http://{host}{reverse('paymentfailed')}",      #The URL where the customer will be redirected if they choose to cancel the payment. 
     }
 
@@ -212,11 +233,27 @@ def checkout(request):
 
   #================= Paypal Code  End =====================
 
-    return render(request, 'core/checkout.html', {'cart_items': cart_items,'total':total,'final_price':final_price,'address':address,'paypal':paypal_payment})
+    return render(request,'core/payment.html',{'paypal':paypal_payment})
 
-def payment_success(request):
+
+# ==================== Payment Success Page =====================================
+def payment_success(request,selected_address_id):
+
+    user= request.user
+    address_data = CustomerDetail.objects.get(pk=selected_address_id)
+    cart=Cart.objects.filter(user=request.user)
+    for cart in cart:
+        Order(user=user,customer=address_data,quantity=cart.quantity,pet=cart.product).save()
+        cart.delete()
     return render(request,'core/payment_success.html')
 
+# ==================== Payment Failed Page =====================================
 
 def payment_failed(request):
     return render(request,'core/payment_failed.html')
+
+# ========================= Order Page ==================================
+
+def order(request):
+    ord= Order.objects.filter(user=request.user)
+    return render(request,'core/order.html',{'ord':ord})
