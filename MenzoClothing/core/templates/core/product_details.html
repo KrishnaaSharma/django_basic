@@ -24,7 +24,7 @@
                     <button>XL</button>
                 </div>
                 <a href="{% url "addtocart" dc.id %}"><button class="add-to-cart">Add to Cart</button></a>
-                <button class="add-to-cart">Buy Now</button>
+                <a href="{% url "buynow" dc.id %}" ><button class="add-to-cart">Buy Now</button></a>
 
                 <div class="product-details12">
                     <h4>Product Description </h4>

@@ -1,0 +1,56 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+
+<!-- ==============Order Summary Start Here=================-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 mt-5">
+            <div class="summary">
+                <h3>Summary</h3>
+                <div class="summary-details">
+                    <p>ITEMS <span> ₹{{total}}</span></p>
+                    <p class="total">SubTotal <span>₹{{total}}</span></p>
+                    <p class="total">Shipping <span>₹1000</span></p>
+                    
+                    <p class="total">TOTAL PRICE <span>₹<b>{{final_price}}</span></p>
+                </div>
+                {% comment %} <a href="{% url "checkout" %}">
+                <button class="checkout-btn">Proccess To Pay</button>
+                </a> {% endcomment %}
+            </div>
+        </div>
+
+        <div class="col-sm-5 mt-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 mt-3">
+                          <form method="post" action="{% url 'buynowpayment' pet.id %}">
+                                {% csrf_token %}
+                                    {% for add in address %}
+                                    <label >
+                                        <div class="card flex-md-row mb-4 box-shadow h-md-250 mt-4 ml-4">
+                                            <div class="card-body d-flex flex-column align-items-start">
+                                                <h3 class="mb-0">
+                                                    <input type="radio" name="buynow_selected_address" value="{{ add.id }}" checked>
+                                                Name: {{add.name}}
+                                            </h3>
+                                            <p class="card-text mb-auto">Address:{{add.address}} </p>
+                                            <p class="card-text mb-auto">City:{{add.city}} </p>
+                                            <p class="card-text mb-auto">State: {{add.state}} </p>
+                                            <p class="card-text mb-auto">Pincode:{{add.pincode}} </p> 
+                                            </div>
+                                        </div>
+                                    </label>
+                                    {% endfor %}
+                                       <input type="submit" class="btn btn-primary" value="Proceed to Payment">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

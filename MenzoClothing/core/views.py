@@ -257,3 +257,60 @@ def payment_failed(request):
 def order(request):
     ord= Order.objects.filter(user=request.user)
     return render(request,'core/order.html',{'ord':ord})
+
+
+#========================================== Buy Now ========================================================
+
+def buynow(request,id):
+    pet = Pet.objects.get(pk=id)     # cart_items will fetch product of current user, and show product available in the cart of the current user.
+    delhivery_charge =2000
+    final_price= delhivery_charge + pet.discounted_price
+    
+    address = CustomerDetail.objects.filter(user=request.user)
+
+    return render(request, 'core/buynow.html', {'final_price':final_price,'address':address,'pet':pet})
+
+
+def buynow_payment(request,id):
+
+    if request.method == 'POST':
+        selected_address_id = request.POST.get('buynow_selected_address')
+
+    pet = Pet.objects.get(pk=id)     # cart_items will fetch product of current user, and show product available in the cart of the current user.
+    delhivery_charge =2000
+    final_price= delhivery_charge + pet.discounted_price
+    
+    address = CustomerDetail.objects.filter(user=request.user)
+
+
+    #================= Paypal Code ======================================
+
+    host = request.get_host()   # Will fecth the domain site is currently hosted on.
+
+    paypal_checkout = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': final_price,
+        'item_name': 'Pet',
+        'invoice': uuid.uuid4(),
+        'currency_code': 'USD',
+        'notify_url': f"http://{host}{reverse('paypal-ipn')}",
+        'return_url': f"http://{host}{reverse('buynowpaymentsuccess', args=[selected_address_id,id])}",
+        'cancel_url': f"http://{host}{reverse('paymentfailed')}",
+    }
+
+    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+
+    #========================================================================
+
+    return render(request, 'core/payment.html', {'final_price':final_price,'address':address,'pet':pet,'paypal':paypal_payment})
+
+def buynow_payment_success(request,selected_address_id,id):
+    print('payment sucess',selected_address_id)   # we have fetch this id from return_url': f"http://{host}{reverse('paymentsuccess', args=[selected_address_id])}
+                                                 
+    user =request.user
+    customer_data = CustomerDetail.objects.get(pk=selected_address_id,)
+    
+    pet = Pet.objects.get(pk=id)
+    Order(user=user,customer=customer_data,pet=pet,quantity=1).save()
+   
+    return render(request,'core/buynow_payment_success.html')
