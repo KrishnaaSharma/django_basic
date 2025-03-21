@@ -113,8 +113,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-PAYPAL_RECEIVER_EMAIL = 'sb-xzlhy38506895@business.example.com' # where cash is paid into i.e Merchant receiver mail
-PAYPAL_TEST = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Brevo's SMTP server
+EMAIL_PORT = 587  # SMTP port for TLS
+EMAIL_USE_TLS = True  
+EMAIL_HOST_USER = 'krishnaasharma647@gmail.com'  
+EMAIL_HOST_PASSWORD = 'owlw tyvw zkfm rfjq'  
+DEFAULT_FROM_EMAIL = 'krishnaasharma647@gmail.com'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -122,7 +127,11 @@ PAYPAL_TEST = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
-STATIC_URL = 'static/'
+MEDIA_ROOT = BASE_DIR/'media'
+
+
+PAYPAL_RECEIVER_EMAIL = 'sb-xzlhy38506895@business.example.com' # where cash is paid into i.e Merchant receiver mail
+PAYPAL_TEST = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

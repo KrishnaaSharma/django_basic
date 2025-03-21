@@ -1,7 +1,8 @@
-:root {
-    color: black;
-}
 
+
+body{
+    margin-top: 100px;
+}
 /* Custom Background Color */
 .bg-custom {
     background-color: #F8EBD9 !important;
