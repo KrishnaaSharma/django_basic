@@ -1,98 +1,168 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-<div class="container-fluid profile">
-      <div class="row">
-        <div class="col-md-2 d-none d-md-block sidebar" >
-            <nav >
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
+<style>
+/* Layout container */
+.profile {
+    margin-top:60px;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar styles */
+.sidebar {
+    background-color: #d6c4ad;
+    width: 220px;
+    padding: 20px 10px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .nav-link {
+    color: #3b2f2f;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #c4b6a3;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+/* Main content area */
+.address-content {
+    flex-grow: 1;
+    background-color: #f6e9d7;
+    padding: 40px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* Address form */
+.profile-form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    width: 40%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.profile-form h3 {
+    color: #805c3c;
+    margin-bottom: 20px;
+}
+
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.register-button {
+    background-color: #b49a77;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Address cards */
+.address-cards {
+    width: 55%;
+}
+
+.address-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.address-card h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.address-card p {
+    margin: 2px 0;
+    color: #555;
+}
+
+.address-card .delete-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+</style>
+
+<div class="profile">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <nav>
+            <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url "profile" %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    Dashboard <span class="sr-only">(current)</span>
-                    </a>
+                    <a class="nav-link active" href="{% url 'profile' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url "changepassword" %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    Change Password <span class="sr-only">(current)</span>
-                    </a>
+                    <a class="nav-link active" href="{% url 'changepassword' %}">Change Password</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                    Orders
-                    </a>
+                    <a class="nav-link" href="#">Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "viewcart"  %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                    Cart
-                    </a>
+                    <a class="nav-link" href="{% url 'viewcart' %}">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "address" %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    Address
-                    </a>
+                    <a class="nav-link" href="{% url 'address' %}">Address</a>
                 </li>
-                </ul>            
-            </div>
-            </nav>
-        </div>    
-        <div class="col-md-8">
-                <div class="container">
-                    <div class="row">
-                            <div class="col-sm-5">
-                    {% comment %} <section class="h-100" style="background-color: #eee;"> {% endcomment %}
-                        <div class="container profile-form">
-                            <div class="reg ">
-                                <h3 class="text-primary">Profile</h3>
-                            </div>
-                            <form action="" method="POST" novalidate>
-                                {% csrf_token %}
-                                {% for f in mf %}
-                                <div class="form-group mr-4 ml-4 ">
-                                    {{f.label_tag}} {{f}} {{f.errors}}
-                                </div>
-                                {% endfor %}
-                                <div class="text-center">
-                                    <input type="submit" value="Save" class="btn btn-success register-button">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                     <div class="col-sm-6">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    {% for add in address %}
-                                    <div class="card flex-md-row mb-4 box-shadow h-md-250 mt-4 ml-4">
-                                        <div class="card-body d-flex flex-column align-items-start">
-                                            <h3 class="mb-0">
-                                            Name: {{add.name}}
-                                        </h3>
-                                        <p class="card-text mb-auto">Address:{{add.address}} </p>
-                                        <p class="card-text mb-auto">City:{{add.city}} </p>
-                                        <p class="card-text mb-auto">State: {{add.state}} </p>
-                                        <p class="card-text mb-auto">Pincode:{{add.pincode}} </p>
-                                        <a href="{% url "deleteaddress" add.id %}">
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <input type="submit" class="btn btn-danger btn-sm mt-2" value="Delete Address">
-                                            </div>
-                                        </a>   
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>        
-            </div>
-        </div>
-      </div>
+            </ul>
+        </nav>
     </div>
 
+    <!-- Address Content -->
+    <div class="address-content">
+        <!-- Address Form -->
+        <div class="profile-form">
+            <h3>Add / Edit Address</h3>
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+                {% for f in mf %}
+                    <div class="form-group">
+                        {{ f.label_tag }} {{ f }} {{ f.errors }}
+                    </div>
+                {% endfor %}
+                <div class="text-center">
+                    <input type="submit" value="Save" class="register-button">
+                </div>
+            </form>
+        </div>
+
+        <!-- Existing Addresses -->
+        <div class="address-cards">
+            {% for add in address %}
+            <div class="address-card">
+                <h4>Name: {{ add.name }}</h4>
+                <p>Address: {{ add.address }}</p>
+                <p>City: {{ add.city }}</p>
+                <p>State: {{ add.state }}</p>
+                <p>Pincode: {{ add.pincode }}</p>
+                <a href="{% url 'deleteaddress' add.id %}">
+                    <button class="delete-btn">Delete Address</button>
+                </a>
+            </div>
+            {% empty %}
+            <p>No address found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
