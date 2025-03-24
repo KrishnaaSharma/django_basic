@@ -130,7 +130,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
 
-PAYPAL_RECEIVER_EMAIL = 'sb-xzlhy38506895@business.example.com' # where cash is paid into i.e Merchant receiver mail
+PAYPAL_RECEIVER_EMAIL = 'sb-vqciv38775816@business.example.com' # where cash is paid into i.e Merchant receiver mail
 PAYPAL_TEST = True
 
 # Default primary key field type

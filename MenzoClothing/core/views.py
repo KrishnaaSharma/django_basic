@@ -254,6 +254,7 @@ def payment_success(request,selected_address_id):
     for cart in cart:
         Order(user=user,customer=address_data,quantity=cart.quantity,pet=cart.product).save()
         cart.delete()
+        print('hello')
     return render(request,'core/payment_success.html')
 
 # ==================== Payment Failed Page =====================================
