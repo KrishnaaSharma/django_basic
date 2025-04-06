@@ -1,0 +1,69 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #fff;
+        padding: 20px;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .card {
+        flex: 1;
+        min-width: 300px;
+        max-width: 33%;
+        text-align: center;
+    }
+    
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .card h3 {
+        margin: 15px 0 10px 0;
+        font-size: 18px;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+    
+    .card a {
+        color: #000;
+        text-decoration: underline;
+        font-size: 16px;
+    }
+    
+</style>
+<body>
+    <div class="container">
+        <div class="card">
+            <a href="{% url "shirtcategories" %}">
+            <img src="static/core/images/fullout.jpg" alt="Coats and Jackets">
+            <h3>Must-Have Coats and Jackets</h3>
+            Shop now</a>
+        </div>
+        <div class="card">
+            <a href="{% url "suitscategories" %}">
+            <img src="static/core/images/suit.jpg" alt="Versace Collection">
+            <h3>Versace SS25: Discover the New Collection</h3>
+            Shop now</a>
+        </div>
+        <div class="card">
+            <a href="{% url "sherwanicategories" %}">
+            <img src="static/core/images/wedding.jpeg" alt="Polo Shirts">
+            <h3>Polo Shirts: Elevate the Everyday</h3>
+            Shop the new-season edit</a>
+        </div>
+    </div>
+</body>
+</html>

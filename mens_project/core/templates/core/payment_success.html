@@ -1,0 +1,76 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+<style>
+    body {
+      margin-top: 70px;
+        text-align: center;
+        background: #f8f9fa;
+        font-family: 'Nunito Sans', sans-serif;
+    }
+    .pay {
+        margin-top: 70px;
+    }
+    .payment {
+        font-size: 28px;
+        font-weight: bold;
+        color: #28a745;
+    }
+    .card {
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        margin-top: 20px;
+    }
+    .gif-container {
+        margin-bottom: 20px;
+    }
+    h1 {
+        color: #28a745;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    p {
+        font-size: 16px;
+        color: #555;
+    }
+    .continue-shopping {
+        margin-top: 20px;
+    }
+    .btn-success {
+        background: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .btn-success:hover {
+        background: #218838;
+    }
+</style>
+
+
+
+<div class="pay">
+    <h1 class="payment"> Payment Success </h1>
+</div>
+<div class="card">
+    <div class="gif-container">
+        <img src="{% static 'core/images/success2.gif' %}" alt="Payment Success GIF" width="200">
+    </div>
+    <h1>Success</h1>
+    <p>We received your order.<br/> Thank you for purchasing!</p>
+</div>
+<div class="continue-shopping">
+    <a href="{% url 'home' %}">
+        <button type="button" class="btn btn-success">Continue Shopping</button>
+    </a>
+</div>
+{% endblock content %}

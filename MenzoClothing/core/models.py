@@ -65,7 +65,7 @@ class Pet(models.Model):
     description=models.TextField()
     original_price = models.IntegerField()
     discounted_price = models.IntegerField()
-    pet_image =models.ImageField(upload_to='pet_images')  # As we are using image field we have to intall 'pillow'. And we have to Define MEDIA_URL in settings.py file so that all folder should save in media directory
+    mens_image =models.ImageField(upload_to='mens_images')  # As we are using image field we have to intall 'pillow'. And we have to Define MEDIA_URL in settings.py file so that all folder should save in media directory
 
     def __str__(self):
         return str(self.name)
@@ -98,7 +98,6 @@ class Order(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     order_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return str(self.id)

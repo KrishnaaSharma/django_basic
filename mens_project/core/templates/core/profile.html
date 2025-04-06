@@ -1,0 +1,162 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+    body {
+        margin-top:60px;
+        background-color: #F8EBD9;
+       
+    }
+
+    .main-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        background-color: #d6c9b7;
+        width: 250px;
+        padding: 30px 20px;
+        border-right: 1px solid #aaa;
+        /* Remove right margin or padding */
+        margin-right: 0;
+    }
+
+    .sidebar .nav-link {
+        color: #000;
+        font-weight: 500;
+        padding: 12px 15px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: #c4b6a3;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+
+    .sidebar .nav-link.active {
+        background-color: #a39078;
+        color: #fff;
+        border-radius: 8px;
+    }
+
+    .content-area {
+        flex-grow: 1;
+        padding: 0; /* Remove padding to remove gap */
+        margin: 0;
+    }
+
+    .profile-form {
+        background-color: white;
+        padding: 30px;
+        border-radius: 0 12px 12px 0;
+        box-shadow: none;
+        height: 100%;
+    }
+
+    .reg h3 {
+        font-size: 28px;
+        color: #000;
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .form-group label {
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+    }
+
+    .register-button {
+        background-color: #000;
+        color: #F8EBD9;
+        font-weight: bold;
+        padding: 10px 30px;
+        border: none;
+        border-radius: 6px;
+    }
+
+    .register-button:hover {
+        background-color: #333;
+        color: #F8EBD9;
+    }
+</style>
+
+
+<div class="main-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <nav>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'profile' %}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'changepassword' %}">
+                        Change Password
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "order" %}">
+                        Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'viewcart' %}">
+                        Cart
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'address' %}">
+                        Address
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="content-area">
+        <div class="profile-form">
+            <div class="reg">
+                <h3>Profile</h3>
+            </div>
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+
+                {% if mf.non_field_errors %}
+                    {% for error in mf.non_field_errors %}
+                        <span class="alert alert-danger">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+
+                {% for m in mf %}
+                    <div class="form-group">
+                        {{ m.label_tag }} {{ m }} {{ m.errors }}
+                    </div>
+                {% endfor %}
+
+                <div class="text-center">
+                    <input type="submit" value="Save" class="register-button">
+                </div>
+            </form>
+
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

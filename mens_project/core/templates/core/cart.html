@@ -1,0 +1,194 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+/* Full page flex container */
+.profile {
+    margin-top:60px;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #d6c4ad;
+    width: 220px;
+    padding: 20px 10px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar nav links */
+.sidebar .nav-link {
+    color: #3b2f2f;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #c4b6a3;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+
+/* Cart content area */
+.cart-content {
+    flex-grow: 1;
+    background-color: #f6e9d7;
+    padding: 40px;
+    border-radius: 20px 0 0 20px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+}
+
+/* Cart Styling */
+.cart h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #805c3c;
+}
+
+.cart-items {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 25px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.product-name {
+    margin-right: 200px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.product-desc {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Quantity buttons */
+.quantity button {
+    background-color: #b49a77;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.quantity input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Remove button */
+.remove-item {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Back to shop link */
+.back-to-shop {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #805c3c;
+    font-weight: bold;
+}
+
+.checkout-btn{
+ background-color:  #333;
+}
+</style>
+
+<div class="profile">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <nav>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'profile' %}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'changepassword' %}">
+                        Change Password
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "order" %}">
+                        Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'viewcart' %}">
+                        Cart
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'address' %}">
+                        Address
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Cart Content -->
+    <div class="cart-content">
+        <div class="cart">
+            <h2>Shopping Cart</h2>
+            <p class="items-count">Items</p>
+            {% for item in cart_items %}
+            <div class="cart-items">
+                <div class="cart-item">
+                    <img src="{{ item.product.mens_image.url }}" alt="Product">
+                    <div class="item-details">
+                        <p class="product-name">{{ item.product.name }}</p>
+                        <p class="product-desc">Size: <strong>{{ item.size }}</strong></p>
+                    </div>
+                    <div class="quantity">
+                        <a href="{% url 'delete_quantity' item.id %}"><button>-</button></a>
+                        <input type="text" value="{{ item.quantity }}">
+                        <a href="{% url 'add_quantity' item.id %}"><button>+</button></a>
+                    </div>
+                    <p class="price">₹{{ item.price_and_quantity_total }}</p>
+                    <a href="{% url 'deletecart' item.id %}"><button class="remove-item">&times;</button></a>
+                </div>
+            </div>
+            {% endfor %}
+            <a href="{% url "checkout" %}">
+                <button class="checkout-btn">Proccess To Pay</button>
+            </a> 
+            <a href="{% url 'profile' %}" class="back-to-shop">← Back to shop</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

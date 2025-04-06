@@ -145,7 +145,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{% url "order" %}">
                         Orders
                     </a>
                 </li>
@@ -171,7 +171,7 @@
             {% for item in cart_items %}
             <div class="cart-items">
                 <div class="cart-item">
-                    <img src="{{ item.product.pet_image.url }}" alt="Product">
+                    <img src="{{ item.product.mens_image.url }}" alt="Product">
                     <div class="item-details">
                         <p class="product-name">{{ item.product.name }}</p>
                         <p class="product-desc">{{ item.product.name }}</p>

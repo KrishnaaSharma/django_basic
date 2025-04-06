@@ -1,0 +1,109 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #F8EBD9;
+    }
+
+    .form-container {
+        max-width: 450px;
+        margin: auto;
+        margin-top: 60px;
+        padding: 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        color: #000; /* black text */
+        margin-bottom: 25px;
+    }
+
+    .form-group input {
+        border: none;
+        border-bottom: 2px solid #666; /* grey underline */
+        border-radius: 0;
+        width: 100%;
+        padding: 10px 5px;
+        box-shadow: none;
+        color: #000; /* black text */
+        background-color: transparent;
+    }
+
+    .form-group input:focus {
+        border-color: #000; /* black focus */
+        outline: none;
+        box-shadow: none;
+    }
+
+    .btn-custom {
+        background-color: #000; /* black button */
+        color: #F8EBD9; /* theme text */
+        border: none;
+        padding: 10px 0;
+        width: 100%;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .btn-custom:hover {
+        background-color: #333; /* dark grey hover */
+        color: #F8EBD9;
+    }
+
+    .forgot-link, .signin-link {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .forgot-link a, .signin-link a {
+        color: #000;
+        text-decoration: underline;
+    }
+
+    .alert {
+        max-width: 450px;
+        margin: 10px auto;
+    }
+</style>
+
+<div class="form-container">
+    <div class="form-title">Login Here</div>
+
+    <form action="" method="POST" novalidate>
+        {% csrf_token %}
+
+        {% if mf.non_field_errors %}
+            {% for error in mf.non_field_errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% for m in mf %}
+        <div class="form-group mb-3">
+            {{ m.label_tag }} {{ m }} {{ m.errors }}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-custom">Login</button>
+
+        <div class="forgot-link">
+            <a href="{% url 'forgotpassword' %}">Forgot password?</a>
+        </div>
+    </form>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,89 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}About{% endblock title %}
+
+{% block content %}
+
+<style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+        .about-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            gap: 50px;
+        }
+        .about-image img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+        .about-content {
+            max-width: 600px;
+        }
+        .about-content h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .about-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .shop-button {
+            padding: 12px 24px;
+            border: 2px solid #000;
+            background-color: transparent;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .shop-button:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .about-section {
+                flex-direction: column;
+                padding: 30px;
+            }
+            .about-image img {
+                width: 100%;
+            }
+        }
+    </style>
+
+<body>
+
+<section id="product-page" class="product-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="product-heading text-center mb-5">
+                        <h2 class="pb-3 position-relative d-inline-block">Abouts Us</h2>
+                    </div>
+                </div>
+            </div>
+        
+    <section class="about-section">
+        <div class="about-image">
+            <img src="{% static 'core/images/about.jpeg' %}" alt="Artistic Fashion Collection" />
+        </div>
+        <div class="about-content">
+            <h1>Introducing Born of Art - Our Most Artistic Collection Yet!</h1>
+            <p>
+                A collection inspired by the greatest art movements of all time. Our new designs draw from the intricate details of the Renaissance, the vibrant strokes of Impressionism, and the bold lines of modern art. Explore our range of shirts, trousers, blazers, and t-shirts—each piece a wearable work of art. This isn't just clothing; it's a statement.
+            </p>
+            <button class="shop-button">SHOP NOW</button>
+        </div>
+    </section>
+
+{% endblock content %}

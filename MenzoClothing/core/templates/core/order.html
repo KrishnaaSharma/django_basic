@@ -2,15 +2,48 @@
 
 {% block css %}
 <style>
-    body{
-        background: #ddd3;
-        vertical-align: bottom;
-        font-family: Muli;
-        font-size: 14px;    
+    body {
+        margin-top:60px;
+        background-color: #F8EBD9;
+        
     }
+
+    .main-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        background-color: #d6c9b7;
+        width: 250px;
+        padding: 30px 20px;
+        border-right: 1px solid #aaa;
+    }
+
+    .sidebar .nav-link {
+        color: #000;
+        font-weight: 500;
+        padding: 12px 15px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: #c4b6a3;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+
+    .sidebar .nav-link.active {
+        background-color: #a39078;
+        color: #fff;
+        border-radius: 8px;
+    }
+
+
     .card{
         margin: auto;
-        width: 38%;
+        width: 100%;
         max-width:600px;
         padding: 4vh 0;
         box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -61,26 +94,7 @@
     .total .col-3{
         padding: 0;
     }
-    .footer{
-        padding: 0 8%;
-        font-size: x-small;
-        color: black;
-    }
-    .footer img{
-        height: 5vh;
-        opacity: 0.2;
-    }
-    .footer a{
-        color: rgb(252, 103, 49);
-    }
-    .footer .col-10, .col-2{
-        display: flex;
-        padding: 3vh 0 0;
-        align-items: center;
-    }
-    .footer .row{
-        margin: 0;
-    }
+
     #progressbar {
         margin-bottom: 3vh;
         overflow: hidden;
@@ -158,6 +172,7 @@
     }
     .progress-track{
         padding: 0 8%;
+        color:green;
     }
     #progressbar li:nth-child(2):after {
         margin-right: auto;
@@ -185,98 +200,150 @@
         background: rgb(252, 103, 49);
     }
     .order{
-        margin-top:100px;
+        margin-top:3%;
+    }
+    .title{
+        font-size:1.6rem;
+    }
+
+    #progressbar #step1{
+        font-size:1.2rem;
+    
+    }
+    #progressbar #step2{
+        font-size:1.2rem;
+    
+    }
+    #progressbar #step3{
+        font-size:1.2rem;
+    
     }
 </style>
 
 {% endblock css %}
 
-
 {% block content %}
 
-{% for o in ord %}
-<div class="order">
-        <div class="card">
-            <div class="title">Purchase Reciept</div>
-            <div class="info">
-                <div class="row">
-                    <div class="col-7">
-                        <span id="heading">Date</span><br>
-                        <span id="details">10 October 2018</span>
-                    </div>
-                    <div class="col-5 pull-right">
-                        <span id="heading">Order No.</span><br>
-                        <span id="details">012j1gvs356c</span>
-                    </div>
-                </div>      
-            </div>      
-            <div class="pricing">
-                <div class="row">
-                    <div class="col-9">
-                        <span id="name">{{o.pet.name}}</span>  
-                    </div>
-                    <div class="col-3">
-                        <span id="price">₹ {{o.pet.discounted_price}}</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-9">
-                        <span id="name">Shipping</span>
-                    </div>
-                    <div class="col-3">
-                        <span id="price">₹ 2000</span>
-                    </div>
-                </div>
-            </div>
-            <div class="total">
-                <div class="row">
-                    <div class="col-9"></div>
-                    <div class="col-3"><big>{{o.pet.discounted_price|add:2000}}</big></div>
-                </div>
-            </div>
-            <div class="tracking">
-                <div class="title">Tracking Order</div>
-            </div>
-
-            {% if o.status == 'PENDING' %}
-            <div class="progress-track ml-5">
-                <ul id="progressbar">
-                    <li class="step0 active " id="step1">Pending</li>
-                    <li class="step0  text-center" id="step2">Processing</li>
-                    <li class="step0  text-right" id="step3">Completed</li>
+<div class="container-fluid profile view-cart view-cart-right-side-bar">
+    
+            <!-- Sidebar -->
+    <div class="sidebar">
+        <nav>
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'changepassword' %}">Change Password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "order" %}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'viewcart' %}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'address' %}">Address</a>
+                    </li>
                 </ul>
             </div>
-            {% endif %}
+        </nav>
+    </div>
 
-            {% if o.status == 'PROCESSING' %}
-            <div class="progress-track ml-5">
-                <ul id="progressbar">
-                    <li class="step0 active " id="step1">Pending</li>
-                    <li class="step0 active text-center" id="step2">Processing</li>
-                    <li class="step0  text-right" id="step3">Completed</li>
-                </ul>
-            </div>
-            {% endif %}
 
-            {% if o.status == 'COMPLETED' %}
-            <div class="progress-track ml-5">
-                <ul id="progressbar">
-                    <li class="step0 active " id="step1">Pending</li>
-                    <li class="step0 active text-center" id="step2">Processing</li>
-                    <li class="step0 active text-right" id="step3">Completed</li>
-                </ul>
-            </div>
-            {% endif %}
-
-        {% endfor %}
-            <div class="footer">
-                <div class="row">
-                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/YBWc55P.png"></div>
-                    <div class="col-10">Want any help? Please &nbsp;<a> contact us</a></div>
-                </div>
-                
-               
-            </div>
         </div>
+        <div class="col-md-8">
+                {% for o in ord %}
+                <div class="order">
+                    <div class="card">
+                        <div class="title">Purchase Reciept</div>
+                        <div class="info">
+                            <div class="row">
+                                <div class="col-7">
+                                    <span id="heading" class="text-danger">Date</span><br>
+                                    <span id="details" >{{o.order_at}}</span>
+                                </div>
+                                <div class="col-5 pull-right">
+                                    <span id="heading" class="text-danger">Order No.</span><br>
+                                    <span id="details">012j1gvs356c</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pricing">
+                            <div class="row">
+                                <div class="col-9">
+                                    <span id="name">{{o.mens.name}}</span>
+                                </div>
+                                <div class="col-3">
+                                    <span id="price">₹
+                                        {{o.mens.discounted_price}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-9">
+                                    <span id="name">Shipping</span>
+                                </div>
+                                <div class="col-3">
+                                    <span id="price">₹ 2000</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="total">
+                            <div class="row">
+                                <div class="col-9"></div>
+                                <div class="col-3 text-light"><big>{{o.mens.discounted_price|add:2000}}</big></div>
+                            </div>
+                        </div>
+                        <div class="tracking">
+                            <div class="title">Tracking Order</div>
+                        </div>
+
+                        {% if o.status == 'PENDING' %}
+                        <div class="progress-track ml-5">
+                            <ul id="progressbar">
+                                <li class="step0 active "
+                                    id="step1">Pending</li>
+                                <li class="step0  text-center"
+                                    id="step2">Processing</li>
+                                <li class="step0  text-right"
+                                    id="step3">Completed</li>
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        {% if o.status == 'PROCESSING' %}
+                        <div class="progress-track ml-5">
+                            <ul id="progressbar">
+                                <li class="step0 active "
+                                    id="step1">Pending</li>
+                                <li class="step0 active text-center"
+                                    id="step2">Processing</li>
+                                <li class="step0  text-right"
+                                    id="step3">Completed</li>
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        {% if o.status == 'COMPLETED' %}
+                        <div class="progress-track ml-5">
+                            <ul id="progressbar">
+                                <li class="step0 active "
+                                    id="step1">Pending</li>
+                                <li class="step0 active text-center"
+                                    id="step2">Processing</li>
+                                <li class="step0 active text-right"
+                                    id="step3">Completed</li>
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    </div>
 </div>
+
 {% endblock content %}

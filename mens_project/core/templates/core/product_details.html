@@ -1,0 +1,78 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Product Description{% endblock title %}
+
+{% block content %}
+
+<style>
+    .size-options label {
+        display: inline-block;
+        border: 1px solid #ccc;
+        padding: 12px 18px;
+        margin: 5px;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #f1f1f1;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .size-options input[type="radio"] {
+        display: none;
+    }
+
+    .size-options input[type="radio"]:checked + label {
+        background-color: black;
+        color: white;
+        border: 2px solid black;
+    }
+    
+</style>
+
+<section class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+            <div class="product-Description1">
+                <img class="shpimage" src="{{ dc.mens_image.url }}" alt="Product Image">
+                <div class="details">
+                    <h2>{{ dc.name }}</h2>
+                    <p class="price">{{ dc.original_price }} <span style="text-decoration: line-through; color: red;">{{ dc.discounted_price }}</span><small class="text-danger">(72% off)</small></p>
+                    
+                    <form method="POST" action="{% url 'addtocart' dc.id %}">
+                        {% csrf_token %}
+                        <p>Select Size:</p>
+                        <div class="size-options">
+                            <input type="radio" id="size-s" name="size" value="S" required>
+                            <label for="size-s">S</label>
+
+                            <input type="radio" id="size-m" name="size" value="M">
+                            <label for="size-m">M</label>
+
+                            <input type="radio" id="size-l" name="size" value="L">
+                            <label for="size-l">L</label>
+
+                            <input type="radio" id="size-xl" name="size" value="XL">
+                            <label for="size-xl">XL</label>
+                        </div>
+                        <button type="submit" class="add-to-cart">Add to Cart</button>
+                    </form>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <span class="alert alert-{{ message.tags }}">{{ message }}</span>
+                        {% endfor %}
+                    {% endif %}
+
+                    <a href="{% url 'buynow' dc.id %}"><button class="add-to-cart">Buy Now</button></a>
+
+                    <div class="product-details12">
+                        <h4>Product Description</h4>
+                        <span>{{ dc.description }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Sherwani Products{% endblock title %}
+
+{% block content %}
+
+<!-- Main CSS File Include -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+<section id="product-page" class="product-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="product-heading text-center mb-5">
+                    <h2 class="pb-3 position-relative d-inline-block">Products</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for dc in dc %}
+            <div class="col-sm-6 col-lg-4">
+              <div class="product-textimages"> 
+                <a href="{% url "productdetails" dc.id %}" class="d-block text-center mb-4">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="{{ dc.mens_image.url }}" alt="Product Image" class="img-fluid product-thumbnail">
+                        </div>
+                        <div class="product-text">
+                            <h3 class="product-title">{{ dc.name }}</h3>
+                            <p class="product-price">
+                                ₹{{ dc.original_price }} <del>₹{{ dc.discounted_price }}</del><small class="text-danger">    72% off</small>
+                            </p>
+                           
+                            <button type="button" class="btn-add-to-cart">ADD to Cart</button>
+                            <button type="button" class="btn-add-to-cart">Buy Now</button>
+                        </div>
+                    </div>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

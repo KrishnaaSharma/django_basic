@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomerDetail,Pet,Cart,Order
+from .models import CustomerDetail,Mens,Cart,Order
 # Register your models here.
 
 @admin.register(CustomerDetail)
@@ -7,7 +7,7 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display= ['id','user','name','address','city','state','pincode']
 
 
-@admin.register(Pet)
+@admin.register(Mens)
 class PetAdmin(admin.ModelAdmin):
     list_display= ['id','name','category','small_description','description','original_price','discounted_price']
 
@@ -19,4 +19,4 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display= ['id','user','customer','pet','quantity','order_at','status','total_price']
+    list_display= ['id','user','customer','pet','quantity','order_at','status']
