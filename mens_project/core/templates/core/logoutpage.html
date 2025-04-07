@@ -51,10 +51,9 @@
     }
 
     .content-area {
-    background-color: #F8EBD9;
-    flex-grow: 1;
-    padding: 0; /* Remove padding to remove gap */
-    margin: 0;
+        flex-grow: 1;
+        padding: 0; /* Remove padding to remove gap */
+        margin: 0;
     }
 
     .profile-form {
@@ -100,6 +99,77 @@
         background-color: #333;
         color: #F8EBD9;
     }
+    
+
+
+    .content-area {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .logout-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        text-align: center;
+        margin: auto;
+    }
+    
+
+.logout-box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.logout-icon {
+    font-size: 50px;
+    color: #805c3c;
+    margin-bottom: 20px;
+}
+
+.logout-box h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.logout-box p {
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+.logout-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn {
+    width: 300px;
+    background-color: #805c3c;
+    color: white;
+}
+
+.logout-btn:hover {
+    background-color: #a39078;
+
+}
 </style>
 
 
@@ -109,12 +179,12 @@
         <nav>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'profile' %}">
+                    <a class="nav-link " href="{% url 'profile' %}">
                         Profile
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{% url 'changepassword' %}">
+                    <a class="nav-link" href="{% url 'changepassword' %}">
                         Change Password
                     </a>
                 </li>
@@ -133,43 +203,39 @@
                         Address
                     </a>
                 </li>
-
-                <li class="nav-item">
+                
+                
+                <li class="nav-item active">
                     <a class="nav-link" href="{% url 'logoutpage' %}">Logout</a>
                 </li>
             </ul>
         </nav>
     </div>
-
-    <!-- Profile Form -->
-    <div class="content-area">
-        <div class="profile-form">
-            <div class="reg">
-                <h3>Profile</h3>
-            </div>
-            <form action="" method="POST" novalidate>
-                {% csrf_token %}
-
-                {% if mf.non_field_errors %}
-                    {% for error in mf.non_field_errors %}
-                        <span class="alert alert-danger">{{ error }}</span>
-                    {% endfor %}
-                {% endif %}
-
-                {% for m in mf %}
-                    <div class="form-group">
-                        {{ m.label_tag }} {{ m }} {{ m.errors }}
+ <!--logout -->
+          <!--logout -->
+        <div class="content-area">
+            <div class="logout-container">
+                <div class="logout-box">
+                    <div class="logout-icon">
+                        <i class="fas fa-sign-out-alt"></i>
                     </div>
-                {% endfor %}
-
-                <div class="text-center">
-                    <input type="submit" value="Save" class="register-button">
+                    <h2>Are you sure you want to log out?</h2>
+                    <p>You'll need to sign in again to access your account.</p>
+                    
+                    <div class="logout-actions">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn logout-btn">Log Out</button>
+                        </form>
+                    </div>
                 </div>
-            </form>
-
-            
+            </div>
         </div>
-    </div>
+        
+     
+    
+
+    
 </div>
 
 {% endblock content %}

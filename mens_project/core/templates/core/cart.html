@@ -21,9 +21,15 @@
 
 /* Sidebar nav links */
 .sidebar .nav-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 14px; /* 👈 Yeh font chhota karega */
+    color: #000;
+    padding: 10px 20px;
+    cursor: pointer;
     color: #3b2f2f;
-    font-size: 18px;
-    margin-bottom: 15px;
 }
 
 .sidebar .nav-link:hover {
@@ -156,6 +162,9 @@
                     <a class="nav-link" href="{% url 'address' %}">
                         Address
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logoutpage' %}">Logout</a>
                 </li>
             </ul>
         </nav>

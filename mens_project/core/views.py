@@ -186,10 +186,16 @@ def profile(request):
     else:                                                # request.user returns the username
         return redirect('login')
 
+def logout_page(request):
+    return render(request, 'core/logoutpage.html')
+
 def log_out(request):
     logout(request)
     return redirect('home')
 
+
+
+    
 
 def changepassword(request):                                       # Password Change Form               
     if request.user.is_authenticated:                              # Include old password 

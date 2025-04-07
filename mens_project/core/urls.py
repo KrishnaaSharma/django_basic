@@ -27,7 +27,10 @@ urlpatterns = [
     path('registration/',views.registration,name='registration'),
     path('login/',views.log_in,name='login'),
     path('profile/',views.profile,name='profile'),
+    path('logoutpage/', views.logout_page, name='logoutpage'),  # confirmation page
+
     path('logout/',views.log_out, name="logout"),
+
     path('changepassword/',views.changepassword, name="changepassword"),
     path('add_to_cart/<int:id>',views.add_to_cart, name="addtocart"),
     path('view_cart/',views.view_cart, name="viewcart"),

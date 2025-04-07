@@ -41,7 +41,38 @@ body{
     max-height: 650px;
 }
 
+.dropdown-menu{
+    background-color: #F8EBD9;
+    color: #141211;
+    border-radius: 0%;
+    margin-bottom: 100px;
 
+
+
+}
+
+.navbar-nav{
+    font-family: 'Arial', sans-serif;  /* Ya koi stylish font jaise Poppins, Montserrat */
+  font-weight: bold;                 /* Bold letters */
+  text-transform: uppercase;         /* All caps */
+  letter-spacing: 1px;
+  font-size: 13px;               /* Thoda space between letters */
+  color: #000;                       /* Black color */
+  padding: 10px 20px;                /* Thoda padding for spacing */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav:hover {
+    color: #805c3c; /* Hover color (optional) */
+  }
+
+
+.dropdown-menu :hover{
+    background-color: #856d58;
+    color: #141211;
+    
+}
 
 /* ======== Product Page CSS ========== */
 
