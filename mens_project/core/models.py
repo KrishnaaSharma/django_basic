@@ -110,7 +110,7 @@ class Order(models.Model):
     mens = models.ForeignKey(Mens, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     order_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     customer = models.ForeignKey(CustomerDetail, on_delete=models.CASCADE, default=None)
 
 

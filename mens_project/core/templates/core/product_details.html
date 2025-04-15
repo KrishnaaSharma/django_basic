@@ -27,6 +27,42 @@
         color: white;
         border: 2px solid black;
     }
+    .custom-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        color: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+        animation: fadeInOut 4s ease-in-out forwards;
+    }
+
+    .custom-message.success {
+        background-color: #28a745;
+    }
+
+    .custom-message.error {
+        background-color: #dc3545;
+    }
+
+    .custom-message.info {
+        background-color: #17a2b8;
+    }
+
+    .custom-message.warning {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateY(-10px); }
+        10% { opacity: 1; transform: translateY(0); }
+        90% { opacity: 1; }
+        100% { opacity: 0; transform: translateY(-10px); }
+    }
     
 </style>
 
@@ -58,10 +94,15 @@
                         <button type="submit" class="add-to-cart">Add to Cart</button>
                     </form>
                     {% if messages %}
-                        {% for message in messages %}
-                            <span class="alert alert-{{ message.tags }}">{{ message }}</span>
-                        {% endfor %}
+                       <div id="message-container">
+                           {% for message in messages %}
+                               <div class="custom-message {{ message.tags }}">
+                                   {{ message }}
+                               </div>
+                           {% endfor %}
+                       </div>
                     {% endif %}
+
 
                     <a href="{% url 'buynow' dc.id %}"><button class="add-to-cart">Buy Now</button></a>
 
